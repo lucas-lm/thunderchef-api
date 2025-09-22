@@ -1,3 +1,4 @@
+from uuid import uuid4
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -10,9 +11,10 @@ class RecipeRequest(BaseModel):
 
 @app.post('/recipes/generate')
 def generate_recipe(recipe_request: RecipeRequest):
+    random_id = str(uuid4())
     print(recipe_request)
     return {
-        "id": "uuid",
+        "id": random_id,
         "title": "Frango com Batata ao Forno",
         "ingredients": [
             {"name": "batata", "qty": "200g"},
@@ -21,5 +23,5 @@ def generate_recipe(recipe_request: RecipeRequest):
         "instructions": "1. Pré-aqueça o forno...\n2. ...",
         "cooking_time": 45,
         "difficulty": "fácil",
-        "image_url": "https://..."
+        "image_url": "https://picsum.photos/200"
     }

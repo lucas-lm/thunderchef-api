@@ -1,27 +1,26 @@
-from uuid import uuid4
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
+from services.recipe_generator_service import AsyncRecipeGeneratorService
+from settings import Settings
 
+settings = Settings()
 app = FastAPI()
 
 class RecipeRequest(BaseModel):
     ingredients: List[str]
     style: str
 
-@app.post('/recipes/generate')
-def generate_recipe(recipe_request: RecipeRequest):
-    random_id = str(uuid4())
-    print(recipe_request)
-    return {
-        "id": random_id,
-        "title": "Frango com Batata ao Forno",
-        "ingredients": [
-            {"name": "batata", "qty": "200g"},
-            {"name": "frango", "qty": "300g"}
-        ],
-        "instructions": "1. Pré-aqueça o forno...\n2. ...",
-        "cooking_time": 45,
-        "difficulty": "fácil",
-        "image_url": "https://picsum.photos/200"
-    }
+class RecipeGenerated(BaseModel):
+  title: str
+  ingredients: str
+  instructions: str
+  cooking_time: int
+  difficulty: str
+  image_url: str = "https://picsum.photos/200"
+
+@app.post('/recipes/generate', response_model=RecipeGenerated)
+async def generate_recipe(recipe_request: RecipeRequest):
+    recipe_generator_service = AsyncRecipeGeneratorService()
+    recipe_response = await recipe_generator_service.generate_recipe_by_ingredients(recipe_request.ingredients)
+    return recipe_response

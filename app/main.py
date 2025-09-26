@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
-from services.recipe_generator_service import AsyncRecipeGeneratorService
-from settings import Settings
+from .services.recipe_generator_service import AsyncRecipeGeneratorService
+from .settings import Settings
 
 settings = Settings()
 app = FastAPI()

@@ -1,7 +1,7 @@
 from typing import List
 from pydantic import BaseModel
 from openai import AsyncOpenAI, DefaultAioHttpClient
-from settings import Settings
+from ..settings import Settings
 
 settings = Settings()
 

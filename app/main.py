@@ -17,7 +17,7 @@ class RecipeGenerated(BaseModel):
   instructions: str
   cooking_time: int
   difficulty: str
-  image_url: str = "https://picsum.photos/200"
+  image_url: str = "https://picsum.photos/600/300"
 
 @app.post('/recipes/generate', response_model=RecipeGenerated)
 async def generate_recipe(recipe_request: RecipeRequest):

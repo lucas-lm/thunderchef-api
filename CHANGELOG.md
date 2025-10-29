@@ -1,3 +1,9 @@
+## v0.2.0 (2025-10-28)
+
+### Feat
+
+- **generator**: add costs health check
+
 ## v0.1.2 (2025-09-29)
 
 ### Fix

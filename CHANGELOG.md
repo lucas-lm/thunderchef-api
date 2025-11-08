@@ -1,3 +1,9 @@
+## v0.2.1 (2025-11-08)
+
+### Fix
+
+- **recipe-generator**: add flag to control cost short circuit
+
 ## v0.2.0 (2025-10-28)
 
 ### Feat

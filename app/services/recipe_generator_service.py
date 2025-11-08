@@ -45,8 +45,10 @@ class AsyncRecipeGeneratorService:
 
   async def generate_recipe_by_ingredients(self, ingredients: List[str]) -> dict:
 
-    if not await self._is_credit_healthy():
-      raise Exception("Credits reached to the limit :(")
+    if settings.enable_cost_short_circuit:
+      is_credits_healthy = await self._is_credit_healthy()
+      if not is_credits_healthy:
+        raise Exception("Credits reached to the limit :(")
 
     prompt_instructions = "Você é um chef de cozinha"
     prompt_text = "Gere uma receita com os seguintes ingredientes:\n"
